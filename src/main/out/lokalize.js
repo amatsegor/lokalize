@@ -1,15 +1,20 @@
 (function (_, Kotlin, $module$google_spreadsheet) {
   'use strict';
+  var Unit = Kotlin.kotlin.Unit;
+  var Kind_OBJECT = Kotlin.Kind.OBJECT;
   var Kind_CLASS = Kotlin.Kind.CLASS;
   var lazy = Kotlin.kotlin.lazy_klfg04$;
   var listOf = Kotlin.kotlin.collections.listOf_mh5how$;
-  var Unit = Kotlin.kotlin.Unit;
   var indexOf = Kotlin.kotlin.text.indexOf_l5u8uk$;
-  var Kind_OBJECT = Kotlin.Kind.OBJECT;
   var toList = Kotlin.kotlin.collections.toList_us0mfu$;
-  var toIntOrNull = Kotlin.kotlin.text.toIntOrNull_pdl1vz$;
   var equals = Kotlin.equals;
-  var addAll = Kotlin.kotlin.collections.addAll_ye1y7v$;
+  var filterNotNull = Kotlin.kotlin.collections.filterNotNull_m3lr2h$;
+  var toIntOrNull = Kotlin.kotlin.text.toIntOrNull_pdl1vz$;
+  var Regex_init = Kotlin.kotlin.text.Regex_init_61zpoe$;
+  var StringBuilder_init = Kotlin.kotlin.text.StringBuilder_init;
+  var toChar = Kotlin.toChar;
+  var replace = Kotlin.kotlin.text.replace_680rmw$;
+  var toBoxedChar = Kotlin.toBoxedChar;
   var IllegalArgumentException_init = Kotlin.kotlin.IllegalArgumentException_init_pdl1vj$;
   var println = Kotlin.kotlin.io.println_s8jyv4$;
   LSArray.prototype = Object.create(LSEntity.prototype);
@@ -36,6 +41,55 @@
   FakeWriter.prototype.constructor = FakeWriter;
   FileWriter.prototype = Object.create(AbstractWriter.prototype);
   FileWriter.prototype.constructor = FileWriter;
+  function LokalizeJob(reader, writer) {
+    LokalizeJob$Companion_getInstance();
+    this.reader_0 = reader;
+    this.writer_0 = writer;
+  }
+  function LokalizeJob$save$lambda(closure$opts, this$LokalizeJob, closure$outputPath) {
+    return function (it) {
+      if (it != null) {
+        var transformer = TransformerFactory_getInstance().create_61zpoe$(closure$opts.format);
+        this$LokalizeJob.writer_0.write_z2wymv$(closure$outputPath, it, transformer, closure$opts);
+      }
+       else {
+        console.log('No lines detected');
+      }
+      return Unit;
+    };
+  }
+  var emptyList = Kotlin.kotlin.collections.emptyList_287e2$;
+  LokalizeJob.prototype.save_h5kk0c$ = function (outputPath, opts, valueCol) {
+    if (valueCol === void 0)
+      valueCol = null;
+    console.log('saving ' + outputPath);
+    var valCol = valueCol != null ? valueCol : opts.valueCol;
+    this.reader_0.select_int6wo$(emptyList(), opts.keyCol, valCol).then(LokalizeJob$save$lambda(opts, this, outputPath));
+  };
+  function LokalizeJob$Companion() {
+    LokalizeJob$Companion_instance = this;
+  }
+  LokalizeJob$Companion.prototype.fromGoogleSpreadsheet_kwv3np$ = function (spreadsheetKey, sheets) {
+    var fileWriter = new FileWriter();
+    return new LokalizeJob(new GSReader(spreadsheetKey, sheets), fileWriter);
+  };
+  LokalizeJob$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var LokalizeJob$Companion_instance = null;
+  function LokalizeJob$Companion_getInstance() {
+    if (LokalizeJob$Companion_instance === null) {
+      new LokalizeJob$Companion();
+    }
+    return LokalizeJob$Companion_instance;
+  }
+  LokalizeJob.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'LokalizeJob',
+    interfaces: []
+  };
   function SpreadsheetWorksheet(url, id, title, rowCount, colCount) {
     this.url = url;
     this.id = id;
@@ -147,15 +201,10 @@
   function get_Q() {
     return Q.value;
   }
-  function main$lambda(it) {
-    console.log(it);
-    return Unit;
-  }
-  var emptyList = Kotlin.kotlin.collections.emptyList_287e2$;
   function main(args) {
-    var options = new Options();
-    (new FileWriter()).write_z2wymv$('./file.txt', emptyList(), new AndroidTransformer(), options);
-    (new GSReader('1Ej7CiQpGUzbl2Ehb2P2cOpqBzhiWakFKJKW18uakZrw', listOf('*'))).select_ffqom1$(emptyList(), '', '', main$lambda);
+    var options = new Options('KEY', 'android');
+    var job = LokalizeJob$Companion_getInstance().fromGoogleSpreadsheet_kwv3np$('1Ej7CiQpGUzbl2Ehb2P2cOpqBzhiWakFKJKW18uakZrw', listOf('*'));
+    job.save_h5kk0c$('results/values/strings.xml', options, 'EN');
   }
   function LSArray(key, lines) {
     LSEntity.call(this, key);
@@ -260,13 +309,9 @@
     simpleName: 'LSLine',
     interfaces: [LSEntity]
   };
-  function Options(keyCol, valueCol, format, encoding, className, baseClass, header, footer) {
-    if (keyCol === void 0)
-      keyCol = '';
+  function Options(keyCol, format, valueCol, encoding, className, baseClass, header, footer) {
     if (valueCol === void 0)
       valueCol = '';
-    if (format === void 0)
-      format = 'android';
     if (encoding === void 0)
       encoding = 'utf-8';
     if (className === void 0)
@@ -278,8 +323,8 @@
     if (footer === void 0)
       footer = '';
     this.keyCol = keyCol;
-    this.valueCol = valueCol;
     this.format = format;
+    this.valueCol = valueCol;
     this.encoding = encoding;
     this.className = className;
     this.baseClass = baseClass;
@@ -295,10 +340,10 @@
     return this.keyCol;
   };
   Options.prototype.component2 = function () {
-    return this.valueCol;
+    return this.format;
   };
   Options.prototype.component3 = function () {
-    return this.format;
+    return this.valueCol;
   };
   Options.prototype.component4 = function () {
     return this.encoding;
@@ -315,17 +360,17 @@
   Options.prototype.component8 = function () {
     return this.footer;
   };
-  Options.prototype.copy_osr9do$ = function (keyCol, valueCol, format, encoding, className, baseClass, header, footer) {
-    return new Options(keyCol === void 0 ? this.keyCol : keyCol, valueCol === void 0 ? this.valueCol : valueCol, format === void 0 ? this.format : format, encoding === void 0 ? this.encoding : encoding, className === void 0 ? this.className : className, baseClass === void 0 ? this.baseClass : baseClass, header === void 0 ? this.header : header, footer === void 0 ? this.footer : footer);
+  Options.prototype.copy_osr9do$ = function (keyCol, format, valueCol, encoding, className, baseClass, header, footer) {
+    return new Options(keyCol === void 0 ? this.keyCol : keyCol, format === void 0 ? this.format : format, valueCol === void 0 ? this.valueCol : valueCol, encoding === void 0 ? this.encoding : encoding, className === void 0 ? this.className : className, baseClass === void 0 ? this.baseClass : baseClass, header === void 0 ? this.header : header, footer === void 0 ? this.footer : footer);
   };
   Options.prototype.toString = function () {
-    return 'Options(keyCol=' + Kotlin.toString(this.keyCol) + (', valueCol=' + Kotlin.toString(this.valueCol)) + (', format=' + Kotlin.toString(this.format)) + (', encoding=' + Kotlin.toString(this.encoding)) + (', className=' + Kotlin.toString(this.className)) + (', baseClass=' + Kotlin.toString(this.baseClass)) + (', header=' + Kotlin.toString(this.header)) + (', footer=' + Kotlin.toString(this.footer)) + ')';
+    return 'Options(keyCol=' + Kotlin.toString(this.keyCol) + (', format=' + Kotlin.toString(this.format)) + (', valueCol=' + Kotlin.toString(this.valueCol)) + (', encoding=' + Kotlin.toString(this.encoding)) + (', className=' + Kotlin.toString(this.className)) + (', baseClass=' + Kotlin.toString(this.baseClass)) + (', header=' + Kotlin.toString(this.header)) + (', footer=' + Kotlin.toString(this.footer)) + ')';
   };
   Options.prototype.hashCode = function () {
     var result = 0;
     result = result * 31 + Kotlin.hashCode(this.keyCol) | 0;
-    result = result * 31 + Kotlin.hashCode(this.valueCol) | 0;
     result = result * 31 + Kotlin.hashCode(this.format) | 0;
+    result = result * 31 + Kotlin.hashCode(this.valueCol) | 0;
     result = result * 31 + Kotlin.hashCode(this.encoding) | 0;
     result = result * 31 + Kotlin.hashCode(this.className) | 0;
     result = result * 31 + Kotlin.hashCode(this.baseClass) | 0;
@@ -334,10 +379,15 @@
     return result;
   };
   Options.prototype.equals = function (other) {
-    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.keyCol, other.keyCol) && Kotlin.equals(this.valueCol, other.valueCol) && Kotlin.equals(this.format, other.format) && Kotlin.equals(this.encoding, other.encoding) && Kotlin.equals(this.className, other.className) && Kotlin.equals(this.baseClass, other.baseClass) && Kotlin.equals(this.header, other.header) && Kotlin.equals(this.footer, other.footer)))));
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.keyCol, other.keyCol) && Kotlin.equals(this.format, other.format) && Kotlin.equals(this.valueCol, other.valueCol) && Kotlin.equals(this.encoding, other.encoding) && Kotlin.equals(this.className, other.className) && Kotlin.equals(this.baseClass, other.baseClass) && Kotlin.equals(this.header, other.header) && Kotlin.equals(this.footer, other.footer)))));
   };
   function AbstractReader() {
   }
+  AbstractReader.prototype.select_int6wo$ = function (sheets, keyCol, valCol, callback, callback$default) {
+    if (callback === void 0)
+      callback = null;
+    return callback$default ? callback$default(sheets, keyCol, valCol, callback) : this.select_int6wo$$default(sheets, keyCol, valCol, callback);
+  };
   AbstractReader.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'AbstractReader',
@@ -346,7 +396,7 @@
   function FakeReader() {
     AbstractReader.call(this);
   }
-  FakeReader.prototype.select_ffqom1$ = function (sheets, keyCol, valCol, callback) {
+  FakeReader.prototype.select_int6wo$$default = function (sheets, keyCol, valCol, callback) {
     return Promise.resolve(emptyList());
   };
   FakeReader.$metadata$ = {
@@ -381,7 +431,7 @@
         this$GSReader.isFetching_0 = false;
         var worksheetsData = JSON.parse(JSON.stringify(data));
         var worksheetReader = new WorksheetReader(this$GSReader.sheet_0, toList(worksheetsData.worksheets), this$GSReader.sheetsFilter);
-        worksheetReader.read_rn9x60$(GSReader$fetchAllCells$lambda$lambda(this$GSReader));
+        worksheetReader.read_wm33wn$(GSReader$fetchAllCells$lambda$lambda(this$GSReader));
       }
        else
         this$GSReader.fetchDeferred_0.reject('Got neither data or error');
@@ -413,25 +463,105 @@
     console.error(err);
     return Unit;
   }
-  GSReader.prototype.select_ffqom1$ = function (sheets, keyCol, valCol, callback) {
+  GSReader.prototype.select_int6wo$$default = function (sheets, keyCol, valCol, callback) {
     var deferred = get_Q().defer();
     get_Q().when(this.fetchAllCells_0(), GSReader$select$lambda(keyCol, valCol, this, deferred)).fail(GSReader$select$lambda_0);
     return deferred.promise;
   };
-  GSReader.prototype.extractFromRawData_0 = function (cells, keyCol, valCol) {
-    this.extractFromWorksheet_0(cells, keyCol, valCol);
-    return emptyList();
+  var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
+  var collectionSizeOrDefault = Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$;
+  var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
+  GSReader.prototype.extractFromRawData_0 = function (cellLists, keyCol, valCol) {
+    var extractedCells = ArrayList_init();
+    var destination = ArrayList_init_0(collectionSizeOrDefault(cellLists, 10));
+    var tmp$;
+    tmp$ = cellLists.iterator();
+    while (tmp$.hasNext()) {
+      var item = tmp$.next();
+      destination.add_11rb$(extractedCells.addAll_brywnq$(this.extractFromWorksheet_0(item, keyCol, valCol)));
+    }
+    return extractedCells;
   };
   GSReader.prototype.extractFromWorksheet_0 = function (cells, keyCol, valCol) {
-    var results = emptyList();
-    this.flattenWorksheet_0(cells);
+    var tmp$;
+    var results = ArrayList_init();
+    var rows = this.flattenWorksheet_0(cells);
+    var isInArray = {v: false};
+    var arrayName = {v: ''};
+    var array = {v: ArrayList_init()};
+    var headers = rows.get_za3lpa$(0);
+    if (headers != null) {
+      var keyIndex = {v: -1};
+      var valIndex = {v: -1};
+      tmp$ = headers.size;
+      for (var i = 0; i <= tmp$; i++) {
+        var value = headers.get_za3lpa$(i);
+        if (equals(value, keyCol)) {
+          keyIndex.v = i;
+        }
+        if (equals(value, valCol)) {
+          valIndex.v = i;
+        }
+      }
+      var tmp$_0;
+      tmp$_0 = filterNotNull(rows).iterator();
+      while (tmp$_0.hasNext()) {
+        var element = tmp$_0.next();
+        var tmp$_1, tmp$_2;
+        var keyValue = (tmp$_1 = element.get_za3lpa$(keyIndex.v)) != null ? tmp$_1 : '';
+        var valValue = (tmp$_2 = element.get_za3lpa$(valIndex.v)) != null ? tmp$_2 : '';
+        if (GSReader$Companion_getInstance().arrayStartRegex_0.matches_6bul2c$(keyValue)) {
+          var endIndex = indexOf(keyValue, ']');
+          arrayName.v = keyValue.substring(1, endIndex);
+          isInArray.v = true;
+        }
+         else {
+          if (GSReader$Companion_getInstance().arrayEndRegex_0.matches_6bul2c$(keyValue)) {
+            results.add_11rb$(new LSArray(arrayName.v, array.v));
+            isInArray.v = false;
+            arrayName.v = '';
+          }
+           else if (isInArray.v)
+            array.v.add_11rb$(new LSLine(keyValue, valValue));
+          else {
+            results.add_11rb$(new LSLine(keyValue, valValue));
+          }
+        }
+      }
+    }
     return results;
   };
   GSReader.prototype.flattenWorksheet_0 = function (cells) {
-    console.log('Cell[0] = ' + cells.get_za3lpa$(0));
+    var rows = ArrayList_init();
+    var lastRowIndex = {v: 1};
+    console.log('Cells size: ' + cells.size);
+    var tmp$;
+    tmp$ = cells.iterator();
+    while (tmp$.hasNext()) {
+      var element = tmp$.next();
+      var rowIndex = element.row;
+      var diffWithLastRow = rowIndex - lastRowIndex.v | 0;
+      if (diffWithLastRow > 1) {
+        for (var j = 0; j <= diffWithLastRow; j++) {
+          var newRow = ArrayList_init();
+          newRow.set_wxm5ur$(element.col - 1 | 0, '');
+          rows.set_wxm5ur$(lastRowIndex.v + j | 0, newRow);
+        }
+      }
+      lastRowIndex.v = rowIndex;
+      var row = rows.get_za3lpa$(element.row - 1 | 0);
+      if (row == null) {
+        row = ArrayList_init();
+        rows.set_wxm5ur$(element.row - 1 | 0, row);
+      }
+      row.set_wxm5ur$(element.col - 1 | 0, element._value);
+    }
+    return rows;
   };
   function GSReader$Companion() {
     GSReader$Companion_instance = this;
+    this.arrayStartRegex_0 = Regex_init('\\[[\\w\\-_]+]');
+    this.arrayEndRegex_0 = Regex_init('\\[/\\S+]');
   }
   GSReader$Companion.prototype.shouldUseWorksheet_ruezxl$ = function (worksheetTitles, title, index) {
     if (this.shouldIncludeAllWorksheets_0(worksheetTitles)) {
@@ -471,7 +601,6 @@
     simpleName: 'GSReader',
     interfaces: [AbstractReader]
   };
-  var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   function WorksheetReader(gs, worksheets, sheetsFilter) {
     this.gs_0 = gs;
     this.worksheets_0 = worksheets;
@@ -488,14 +617,14 @@
         console.log(err);
       }
       if (cells != null) {
-        addAll(this$WorksheetReader.cells_0, cells);
+        this$WorksheetReader.cells_0.add_11rb$(toList(cells));
       }
       if (this$WorksheetReader.index_0 === this$WorksheetReader.worksheets_0.size)
         closure$callback(this$WorksheetReader.cells_0);
       return Unit;
     };
   }
-  WorksheetReader.prototype.read_rn9x60$ = function (callback) {
+  WorksheetReader.prototype.read_wm33wn$ = function (callback) {
     var tmp$;
     tmp$ = this.worksheets_0.iterator();
     while (tmp$.hasNext()) {
@@ -523,21 +652,87 @@
     interfaces: []
   };
   function AndroidTransformer() {
+    AndroidTransformer$Companion_getInstance();
     AbstractTransformer.call(this);
   }
-  var NotImplementedError_init = Kotlin.kotlin.NotImplementedError;
   AndroidTransformer.prototype.transformArray_umhckl$ = function (array) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    var builder = StringBuilder_init();
+    builder.append_gw00v9$('<string-array name=' + '"' + array.key + '"' + '>').append_s8itvh$(10);
+    var tmp$;
+    tmp$ = array.lines.iterator();
+    while (tmp$.hasNext()) {
+      var element = tmp$.next();
+      builder.append_gw00v9$('<item>' + element.value + '<\/item>').append_s8itvh$(10);
+    }
+    builder.append_gw00v9$('<\/string-array>');
+    return builder.toString();
   };
   AndroidTransformer.prototype.transformComment_61zpoe$ = function (comment) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    return '<!-- ' + comment + ' -->';
   };
   AndroidTransformer.prototype.transformKeyValue_puj7f4$ = function (key, value) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    var normalizedValue = this.normalize_0(value);
+    var output = '<string name=' + '"' + key + '"' + '>' + normalizedValue + '<\/string>';
+    var currPos = 0;
+    var nbOcc = 1;
+    while (currPos !== -1) {
+      currPos = indexOf(output, '%#$', currPos);
+      output = this.setCharAt_0(output, currPos + 1 | 0, toChar(nbOcc));
+      currPos = currPos + 1 | 0;
+      nbOcc = nbOcc + 1 | 0;
+    }
+    return output;
   };
-  AndroidTransformer.prototype.insert_edr9kb$ = function (input, newValues, options) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+  AndroidTransformer.prototype.insert_f4maoi$ = function (input, newValues, options) {
+    var tmp$;
+    var inputString = input != null ? input : '';
+    var closeTagIndex = indexOf(inputString, '<\/resources>');
+    if (closeTagIndex < 0) {
+      tmp$ = '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n';
+    }
+     else {
+      var autoGeneratedIndex = indexOf(inputString, AndroidTransformer$Companion_getInstance().AUTOGENERATED_TAG);
+      if (autoGeneratedIndex >= 0) {
+        tmp$ = inputString.substring(0, autoGeneratedIndex);
+      }
+       else {
+        tmp$ = inputString.substring(0, closeTagIndex);
+      }
+    }
+    return tmp$;
   };
+  AndroidTransformer.prototype.normalize_0 = function (value) {
+    var normalizedValue = replace(value, '/%newline%/gi', '\\n');
+    normalizedValue = replace(normalizedValue, "/'/gi", "\\'");
+    normalizedValue = replace(normalizedValue, '/%([sdf])/gi', '%#$$$1');
+    normalizedValue = replace(normalizedValue, '/&/gi', '&amp;');
+    normalizedValue = replace(normalizedValue, '/\xA0/gi', '\\u00A0');
+    normalizedValue = replace(normalizedValue, '/([^\\.]|^)(\\.{3})([^\\.]|$)/gi', '$1&#8230;$3');
+    return normalizedValue;
+  };
+  AndroidTransformer.prototype.setCharAt_0 = function (str, index, chr) {
+    if (index > (str.length - 1 | 0))
+      return str;
+    var tmp$ = str.substring(0, index) + String.fromCharCode(toBoxedChar(chr));
+    var startIndex = index + 1 | 0;
+    return tmp$ + str.substring(startIndex);
+  };
+  function AndroidTransformer$Companion() {
+    AndroidTransformer$Companion_instance = this;
+    this.AUTOGENERATED_TAG = '<!-- AUTO-GENERATED -->';
+  }
+  AndroidTransformer$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var AndroidTransformer$Companion_instance = null;
+  function AndroidTransformer$Companion_getInstance() {
+    if (AndroidTransformer$Companion_instance === null) {
+      new AndroidTransformer$Companion();
+    }
+    return AndroidTransformer$Companion_instance;
+  }
   AndroidTransformer.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'AndroidTransformer',
@@ -546,6 +741,7 @@
   function DartTemplateTransformer() {
     AbstractTransformer.call(this);
   }
+  var NotImplementedError_init = Kotlin.kotlin.NotImplementedError;
   DartTemplateTransformer.prototype.transformArray_umhckl$ = function (array) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
@@ -555,7 +751,7 @@
   DartTemplateTransformer.prototype.transformKeyValue_puj7f4$ = function (key, value) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
-  DartTemplateTransformer.prototype.insert_edr9kb$ = function (input, newValues, options) {
+  DartTemplateTransformer.prototype.insert_f4maoi$ = function (input, newValues, options) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
   DartTemplateTransformer.$metadata$ = {
@@ -575,7 +771,7 @@
   DartTransformer.prototype.transformKeyValue_puj7f4$ = function (key, value) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
-  DartTransformer.prototype.insert_edr9kb$ = function (input, newValues, options) {
+  DartTransformer.prototype.insert_f4maoi$ = function (input, newValues, options) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
   DartTransformer.$metadata$ = {
@@ -595,7 +791,7 @@
   DotNetTransformer.prototype.transformKeyValue_puj7f4$ = function (key, value) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
-  DotNetTransformer.prototype.insert_edr9kb$ = function (input, newValues, options) {
+  DotNetTransformer.prototype.insert_f4maoi$ = function (input, newValues, options) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
   DotNetTransformer.$metadata$ = {
@@ -615,7 +811,7 @@
   IOSTransformer.prototype.transformKeyValue_puj7f4$ = function (key, value) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
-  IOSTransformer.prototype.insert_edr9kb$ = function (input, newValues, options) {
+  IOSTransformer.prototype.insert_f4maoi$ = function (input, newValues, options) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
   IOSTransformer.$metadata$ = {
@@ -635,7 +831,7 @@
   JsonTransformer.prototype.transformKeyValue_puj7f4$ = function (key, value) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
-  JsonTransformer.prototype.insert_edr9kb$ = function (input, newValues, options) {
+  JsonTransformer.prototype.insert_f4maoi$ = function (input, newValues, options) {
     throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
   };
   JsonTransformer.$metadata$ = {
@@ -712,7 +908,11 @@
     simpleName: 'FileWriter',
     interfaces: [AbstractWriter]
   };
+  Object.defineProperty(LokalizeJob, 'Companion', {
+    get: LokalizeJob$Companion_getInstance
+  });
   var package$lokalize = _.lokalize || (_.lokalize = {});
+  package$lokalize.LokalizeJob = LokalizeJob;
   var package$external = package$lokalize.external || (package$lokalize.external = {});
   package$external.SpreadsheetWorksheet = SpreadsheetWorksheet;
   package$external.WorksheetsResponse = WorksheetsResponse;
@@ -744,6 +944,9 @@
   package$reader.WorksheetReader = WorksheetReader;
   var package$transformers = package$lokalize.transformers || (package$lokalize.transformers = {});
   package$transformers.AbstractTransformer = AbstractTransformer;
+  Object.defineProperty(AndroidTransformer, 'Companion', {
+    get: AndroidTransformer$Companion_getInstance
+  });
   package$transformers.AndroidTransformer = AndroidTransformer;
   package$transformers.DartTemplateTransformer = DartTemplateTransformer;
   package$transformers.DartTransformer = DartTransformer;

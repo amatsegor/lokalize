@@ -10,5 +10,5 @@ abstract class AbstractTransformer {
 
     abstract fun transformKeyValue(key: String, value: String): String
 
-    abstract fun insert(input: String, newValues: String, options: Options): String
+    abstract fun insert(input: String?, newValues: String, options: Options): String
 }
