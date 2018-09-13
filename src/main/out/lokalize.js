@@ -203,7 +203,7 @@
   }
   function main(args) {
     var options = new Options('KEY', 'android');
-    var job = LokalizeJob$Companion_getInstance().fromGoogleSpreadsheet_kwv3np$('1Ej7CiQpGUzbl2Ehb2P2cOpqBzhiWakFKJKW18uakZrw', listOf('*'));
+    var job = LokalizeJob$Companion_getInstance().fromGoogleSpreadsheet_kwv3np$('', listOf('*'));
     job.save_h5kk0c$('results/values/strings.xml', options, 'EN');
   }
   function LSArray(key, lines) {
