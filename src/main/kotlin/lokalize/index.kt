@@ -1,21 +1,22 @@
 package lokalize
 
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.launch
 import lokalize.models.Options
-import lokalize.reader.GSReader
-import lokalize.transformers.AndroidTransformer
-import lokalize.writer.FileWriter
 
 fun main(args: Array<String>) {
 
-    /*val options = Options("KEY", "android")
+    val options = Options("KEY", "android")
 
-    val job = LokalizeJob.fromGoogleSpreadsheet("", listOf("*"))
-    job.save("results/values/strings.xml", options, "EN")
-
-    FileWriter().write("./file.txt", listOf(), AndroidTransformer(), options)
-
-    GSReader("1Ej7CiQpGUzbl2Ehb2P2cOpqBzhiWakFKJKW18uakZrw", listOf("*"))
-            .select(listOf(), "", "") {
-                console.log(it)
-            }*/
+    GlobalScope.launch {
+        Lokalize.fromGoogleSpreadsheet("1rVIuMUuuJcZNLmAnCRosxOqiZJ-jtRqBz2rkDXvFG8w", "Sheet1")
+                .load(options)
+                .extract("EN", "output/values/strings.xml")
+                .extract("ES", "output/values-es/strings.xml")
+                .extract("BG", "output/values-bg/strings.xml")
+                .extract("LT", "output/values-lt/strings.xml")
+                .extract("LV", "output/values-lv/strings.xml")
+                .transform()
+                .save()
+    }
 }

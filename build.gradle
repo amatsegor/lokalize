@@ -12,6 +12,7 @@ buildscript {
 }
 
 apply plugin: 'kotlin2js'
+apply plugin: 'kotlin-dce-js'
 apply plugin: 'com.moowork.node'
 
 repositories {
@@ -19,7 +20,8 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-js"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:0.26.0"
     testCompile "org.jetbrains.kotlin:kotlin-test-js"
 }
 
@@ -35,6 +37,11 @@ task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
     }
 
     into "${buildDir}/node_modules"
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
 
 node {

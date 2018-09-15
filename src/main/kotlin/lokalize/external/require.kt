@@ -4,4 +4,6 @@ val Process by lazy { require("process") }
 
 val Fs by lazy { require("fs") }
 
-val Q by lazy { require("q") }
+val Path by lazy { require("path") }
+
+val Mkpath by lazy { require("mkpath") }
