@@ -16,7 +16,7 @@ class DartTransformer : AbstractTransformer() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun insert(input: String, newValues: String, options: Options): String {
+    override fun insert(input: String?, newValues: String, options: Options): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

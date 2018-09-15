@@ -1,9 +1,9 @@
 package lokalize.models
 
 data class Options(
-    val keyCol: String = "",
+    val keyCol: String,
+    val format: String,
     val valueCol: String = "",
-    val format: String = "android",
     val encoding: String = "utf-8",
     val className: String = "",
     val baseClass: String = "",
