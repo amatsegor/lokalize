@@ -2,7 +2,7 @@ package lokalize.loader
 
 import lokalize.Logger
 import lokalize.external.GoogleSpreadsheet
-import lokalize.external.WorksheetsResponse
+import lokalize.models.WorksheetsResponse
 import lokalize.models.Worksheet
 import kotlin.coroutines.experimental.suspendCoroutine
 
