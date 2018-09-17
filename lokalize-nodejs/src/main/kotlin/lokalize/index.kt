@@ -10,7 +10,7 @@ fun main(args: Array<String>) {
     val options = Options("KEY", "android")
 
     GlobalScope.launch {
-        Lokalize.using(GoogleSheetLoader("1rVIuMUuuJcZNLmAnCRosxOqiZJ-jtRqBz2rkDXvFG8w", "Sheet1"))
+        Lokalize.using(GoogleSheetLoader("1rVIuMUuuJcZNLmAnCRosxOqiZJ-jtRqBz2rkDXvFG8w", arrayOf("Sheet1")))
                 .load(options)
 //                .extract("EN", "output/values/strings.json")
 //                .extract("ES", "output/values-es/strings.json")

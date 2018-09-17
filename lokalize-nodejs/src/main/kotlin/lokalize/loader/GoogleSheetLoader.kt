@@ -2,11 +2,11 @@ package lokalize.loader
 
 import lokalize.Logger
 import lokalize.external.GoogleSpreadsheet
-import lokalize.models.WorksheetsResponse
 import lokalize.models.Worksheet
+import lokalize.models.WorksheetsResponse
 import kotlin.coroutines.experimental.suspendCoroutine
 
-class GoogleSheetLoader(private val spreadsheetKey: String, private vararg val sheetsFilter: String) : AbstractLoader() {
+actual class GoogleSheetLoader actual constructor(private val spreadsheetKey: String, private val sheetsFilter: Array<String>) : AbstractLoader() {
 
     private var fetchedWorksheets: List<Worksheet>? = null
 
