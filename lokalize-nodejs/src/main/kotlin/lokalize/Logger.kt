@@ -1,16 +1,12 @@
 package lokalize
 
 actual object Logger {
-    actual fun log(message: String) {
-        console.log(message)
-    }
-
-    actual fun log(throwable: Throwable) {
-        console.log(throwable)
-    }
-
     actual fun error(message: String) {
         console.warn(message)
+    }
+
+    actual fun error(throwable: Throwable) {
+        console.warn(throwable)
     }
 
     actual fun warn(message: String) {
@@ -19,5 +15,9 @@ actual object Logger {
 
     actual fun info(message: String) {
         console.info(message)
+    }
+
+    actual fun debug(message: String) {
+        console.info("D/$message")
     }
 }

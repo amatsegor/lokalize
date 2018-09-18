@@ -1,15 +1,33 @@
 plugins {
     id 'kotlin-platform-jvm' version '1.2.61'
+    id 'org.jetbrains.kotlin.jvm' version '1.2.61'
 }
 
 dependencies {
     expectedBy project(":lokalize-common")
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '0.26.0'
+
+    compile 'com.google.api-client:google-api-client:1.25.0'
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.25.0'
+    compile 'com.google.apis:google-api-services-sheets:v4-rev542-1.25.0'
+    compile 'com.google.code.gson:gson:2.8.5'
+
+    compile 'io.github.microutils:kotlin-logging:1.6.10'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
 
     testCompile "junit:junit:4.12"
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'lokalize.MainKt'
+    }
+
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 compileKotlin {
@@ -19,3 +37,13 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 sourceCompatibility = "1.8"
+
+repositories {
+    mavenCentral()
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

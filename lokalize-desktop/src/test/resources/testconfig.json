@@ -1,0 +1,18 @@
+{
+  "key": "1rVIuMUuuJcZNLmAnCRosxOqiZJ-jtRqBz2rkDXvFG8w",
+  "sheets": [ "Sheet1" ],
+  "options": {
+    "format": "android",
+    "keyCol": "KEY"
+  },
+  "targets": [
+    {
+      "valueCol": "EN",
+      "filename": "output/values/strings.xml"
+    },
+    {
+      "valueCol": "ES",
+      "filename": "output/values-es/strings.xml"
+    }
+  ]
+}

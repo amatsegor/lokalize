@@ -107,3 +107,10 @@ buildSrc/src/main/resources/
 buildSrc/src/test/
 src/main/resources/
 src/test/resources/
+
+output
+tokens
+
+client_id.json
+sonar-project.properties
+simplelogger.properties

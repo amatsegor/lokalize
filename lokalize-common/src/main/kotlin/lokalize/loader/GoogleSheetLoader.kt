@@ -2,11 +2,10 @@ package lokalize.loader
 
 import lokalize.Logger
 import lokalize.external.GoogleSpreadsheet
-import lokalize.models.WorksheetsResponse
 import lokalize.models.Worksheet
 import kotlin.coroutines.experimental.suspendCoroutine
 
-class GoogleSheetLoader(private val spreadsheetKey: String, private vararg val sheetsFilter: String) : AbstractLoader() {
+class GoogleSheetLoader constructor(private val spreadsheetKey: String, private val sheetsFilter: Array<String>) : AbstractLoader() {
 
     private var fetchedWorksheets: List<Worksheet>? = null
 
@@ -16,7 +15,7 @@ class GoogleSheetLoader(private val spreadsheetKey: String, private vararg val s
         val worksheets = fetchedWorksheets
 
         if (worksheets == null) {
-            Logger.log("Fetching worksheets...")
+            Logger.debug("Fetching worksheets...")
 
             return suspendCoroutine { cont ->
                 sheet.getInfo { err, data ->
@@ -28,12 +27,14 @@ class GoogleSheetLoader(private val spreadsheetKey: String, private vararg val s
                         }
 
                         data != null -> {
-                            val worksheetsData = JSON.parse<WorksheetsResponse>(JSON.stringify(data))
+                            Logger.debug("Got ${data.worksheets.size} worksheets")
 
-                            val worksheetsList = worksheetsData.worksheets.filter { sheetsFilter.contains(it.title) || sheetsFilter.contains("*") }
+                            val worksheetsList = data.worksheets.filter { sheetsFilter.contains(it.title) || sheetsFilter.contains("*") }
 
                             val worksheetReader = WorksheetReader(sheet, worksheetsList.toList())
                             worksheetReader.read {
+                                Logger.debug("Fetched ${it.size} sheets")
+
                                 this.fetchedWorksheets = it
                                 cont.resume(it)
                             }
@@ -44,7 +45,7 @@ class GoogleSheetLoader(private val spreadsheetKey: String, private vararg val s
                 }
             }
         } else {
-            Logger.log("Using cached worksheets")
+            Logger.info("Using cached worksheets")
             return worksheets
         }
     }
