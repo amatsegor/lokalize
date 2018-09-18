@@ -18,8 +18,12 @@ This app/module helps you to convert a specifically-formatted Google Sheet conta
 * Dart (hey, [Flutter](https://github.com/flutter/flutter)!)
 * Dart template
 
-It's written using a multi-platform projects feature of Kotlin language
+It's written using a multi-platform projects (MPP) feature of Kotlin language, so nearly 65% of LOC are shared and platform-independent.
 
-![https://sonarcloud.io/dashboard?id=amatsegor_lokalize](https://sonarcloud.io/api/project_badges/quality_gate?project=amatsegor_lokalize)
+So why didn't I just remove a NodeJS flavor (desktop one is really easier to use)? Well, it's a good chance to try MPP on a real project - and this is the only reason, I guess
 
-![https://sonarcloud.io/dashboard?id=amatsegor_lokalize](https://sonarcloud.io/api/project_badges/measure?project=amatsegor_lokalize&metric=sqale_index)
+## [Sonarqube](https://sonarcloud.io/dashboard?id=amatsegor_lokalize) badges
+
+![](https://sonarcloud.io/api/project_badges/quality_gate?project=amatsegor_lokalize)
+
+![](https://sonarcloud.io/api/project_badges/measure?project=amatsegor_lokalize&metric=sqale_index)
