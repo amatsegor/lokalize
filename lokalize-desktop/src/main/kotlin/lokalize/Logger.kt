@@ -2,15 +2,11 @@ package lokalize
 
 import mu.KotlinLogging
 
-val logger = KotlinLogging.logger("Lokalize")
-
 actual object Logger {
 
-    actual fun log(message: String) {
-        logger.debug(message)
-    }
+    private val logger = KotlinLogging.logger("Lokalize")
 
-    actual fun log(throwable: Throwable) {
+    actual fun error(throwable: Throwable) {
         logger.error(throwable.localizedMessage)
     }
 
@@ -24,5 +20,9 @@ actual object Logger {
 
     actual fun info(message: String) {
         logger.info(message)
+    }
+
+    actual fun debug(message: String) {
+        logger.debug(message)
     }
 }

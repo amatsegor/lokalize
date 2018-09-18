@@ -8,6 +8,6 @@ class GSTest {
     @Test
     @Ignore
     fun testGSLoading() {
-        Logger.log("testGSLoading")
+        Logger.info("testGSLoading")
     }
 }

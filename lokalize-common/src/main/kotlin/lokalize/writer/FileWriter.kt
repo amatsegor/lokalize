@@ -13,7 +13,7 @@ class FileWriter : AbstractWriter() {
         val currentFolder = FileTools.getCurrentDirectory
         val filePath = "$currentFolder/$path"
 
-        Logger.log("Writing file $filePath")
+        Logger.info("Writing file $filePath")
 
         if (FileTools.isFileExistsSync(filePath)) {
             fileContent = FileTools.readFileSync(path, options.encoding ?: "utf8")

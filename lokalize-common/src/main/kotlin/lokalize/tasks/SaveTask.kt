@@ -11,7 +11,7 @@ class SaveTask(private val entities: Map<String, List<LSEntity>>, private val tr
 
     fun save(writer: AbstractWriter = FileWriter()) {
         entities.entries.forEach {
-            Logger.log("Writing ${it.key} with ${it.value.size} entries")
+            Logger.info("Saving ${it.value.size} entries to ${it.key}")
 
             writer.write(it.key, it.value, transformer, options)
         }

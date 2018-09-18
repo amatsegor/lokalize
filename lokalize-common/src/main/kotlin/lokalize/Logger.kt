@@ -1,9 +1,9 @@
 package lokalize
 
 expect object Logger {
-    fun log(message: String)
+    fun debug(message: String)
 
-    fun log(throwable: Throwable)
+    fun error(throwable: Throwable)
 
     fun error(message: String)
 

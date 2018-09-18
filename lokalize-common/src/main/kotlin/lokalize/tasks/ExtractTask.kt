@@ -12,7 +12,7 @@ import lokalize.transformer.TransformerFactory
 class ExtractTask(private val worksheets: List<Worksheet>, private val opts: Options, private val extractor: Extractor = DefaultExtractor()) {
 
     fun extract(valueCol: String, filePath: String): ExtractTask {
-        Logger.log("Extracting $valueCol...")
+        Logger.info("Extracting $valueCol...")
 
         loadedEntities[filePath] = extractor.extract(worksheets, opts.keyCol ?: "", valueCol)
 
@@ -20,7 +20,7 @@ class ExtractTask(private val worksheets: List<Worksheet>, private val opts: Opt
     }
 
     fun transform(transformer: AbstractTransformer? = null): SaveTask {
-        Logger.log("Transforming ${loadedEntities.size} languages")
+        Logger.info("Transforming ${loadedEntities.size} languages")
 
         val transformer = transformer ?: TransformerFactory.create(opts.format ?: "")
         return SaveTask(loadedEntities, transformer, opts)

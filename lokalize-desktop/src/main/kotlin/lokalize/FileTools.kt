@@ -1,7 +1,6 @@
 package lokalize
 
 import java.io.File
-import java.lang.Exception
 import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -32,5 +31,5 @@ actual object FileTools {
         }
     }
 
-    actual fun getDirectories(path: String): String = Paths.get(path).parent.fileName.toString()
+    actual fun getDirectories(path: String): String = Paths.get(path).parent.toString()
 }
