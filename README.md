@@ -22,6 +22,10 @@ It's written using a multi-platform projects (MPP) feature of Kotlin language, s
 
 So why didn't I just remove a NodeJS flavor (desktop one is really easier to use)? Well, it's a good chance to try MPP on a real project - and this is the only reason, I guess
 
+## Contributing
+
+Issues/PRs are extremely welcome - please, find as much bugs as you can!
+
 ## [Sonarqube](https://sonarcloud.io/dashboard?id=amatsegor_lokalize) badges
 
 ![](https://sonarcloud.io/api/project_badges/quality_gate?project=amatsegor_lokalize)
