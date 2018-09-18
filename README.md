@@ -19,3 +19,7 @@ This app/module helps you to convert a specifically-formatted Google Sheet conta
 * Dart template
 
 It's written using a multi-platform projects feature of Kotlin language
+
+![https://sonarcloud.io/dashboard?id=amatsegor_lokalize](https://sonarcloud.io/api/project_badges/quality_gate?project=amatsegor_lokalize)
+
+![https://sonarcloud.io/dashboard?id=amatsegor_lokalize](https://sonarcloud.io/api/project_badges/measure?project=amatsegor_lokalize&metric=sqale_index)
