@@ -29,13 +29,14 @@ fun main(vararg args: String) {
 
     if (config.options?.encoding == null) config.options?.encoding = "utf8"
 
-    if (!config.isValid) {
+    val errorMessage = config.validate()
+    if (errorMessage != null) {
         Logger.error("Config file $configPath is not valid")
+        Logger.error(errorMessage)
         return
     }
 
     runBlocking {
-        Logger.info("Launching...")
         // using !! operator because I've validated a config before
         var task = Lokalize.using(GoogleSheetLoader(config.key!!, config.sheets!!)).load(config.options!!)
         config.targets?.forEach {

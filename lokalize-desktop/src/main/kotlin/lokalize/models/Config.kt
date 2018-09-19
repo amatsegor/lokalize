@@ -8,21 +8,19 @@ data class Config(
         val options: Options?,
         val targets: Array<Target>?
 ) {
-    val isValid: Boolean
-        get() {
-            if (key.isNullOrEmpty()) return false
-            if (sheets == null || sheets.isEmpty()) return false
-            if (targets == null || targets.isEmpty()) return false
-            if (options == null) return false
-            with(options) {
-                if (keyCol.isNullOrEmpty()) return false
-                if (encoding.isNullOrEmpty()) return false
-                if (format.isNullOrEmpty()) return false
-                if (!VALID_FORMATS.contains(format)) return false
-            }
-
-            return true
+    fun validate(): String? {
+        if (key.isNullOrEmpty()) return "Invalid key"
+        if (sheets == null || sheets.isEmpty()) return "Please, specify sheets to use"
+        if (targets == null || targets.isEmpty()) return "Please, specify loading targets"
+        if (options == null) return "Please, specify options in your config file"
+        with(options) {
+            if (keyCol.isNullOrEmpty()) return "Parameter keycol is empty"
+            if (format.isNullOrEmpty()) return "Parameter format is empty"
+            if (!VALID_FORMATS.contains(format)) return "Format $format is not valid,\nValid formats: ${VALID_FORMATS.joinToString()}"
         }
+
+        return null
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

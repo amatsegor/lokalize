@@ -22,12 +22,16 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 }
 
+version = "1.0"
+
 jar {
     manifest {
         attributes 'Main-Class': 'lokalize.MainKt'
     }
 
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+
+    baseName = "lokalizegs-desktop"
 }
 
 compileKotlin {
