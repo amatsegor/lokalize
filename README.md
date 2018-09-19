@@ -4,7 +4,7 @@
 
 First of all - credits to [xavierha](https://github.com/xavierha/localize-with-spreadsheet) - this project may be considered as a fork of that one.
 
-The concept and ~50% of an implementation I've took from that project, only converting it to Kotlin.
+The concept and `Transformer`-s implementation I've took from that project, only converting it to Kotlin.
 
 As an Android developer I've used an original `localize-with-spreadsheet` for 2+ years and that was fine (excepting that it doesn't support string-array's), so my warm greetings to **xavierha** - man, you helped me really much.
 
