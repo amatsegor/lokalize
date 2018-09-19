@@ -39,24 +39,39 @@ Language: Kotlin 1.2.61
 
 ## Usage:
 
+### Notes:
+* The app will preserve everything that is above the tags: <pre>< !-- AUTO-GENERATED --> (Android)</pre>or<pre>// AUTO-GENERATED (e-thing else)</pre>
+So, any changes that you manually make below this tags, will be overwritten after the next application launch
+
+* Your spreadsheet should be "Published" for the app to work (File -> Publish to the web)
+
 ### Configuration
 `key` - Google Sheet key (https:// docs.google.com/ spreadsheets/d/**1rVIuMUuuJcZNLmAnCRosxOqiZJ-jtRqBz2rkDXvFG8w**/edit)
 
-`sheets` - Sheets filter. May contain either specific sheet names (Sheet1, Sheet2) or just * (so app will fetch all sheets in a document)
+`sheets` - Array of sheet names. May include either specific sheets (Sheet1, Sheet2) or just ``["*"]`` (so app will fetch all sheets in a document)
 
 `options` object - Additional options.
 * `format` - which platform file format you want to get in output **(required)**
 * `keyCol` - title of a column you want to use as translation key **(required)**
 * `encoding` - encoding of an output file. Default: utf8
 
-### Desktop app
-**Requirement:** JDK/JRE 1.8+ installed
+`targets` object - defines which columns you want to be parsed and in what file
+* `valueCol` - title of a column used as a language key
+* `filepath` - path to a target file
 
-First, you should create a config JSON file (example is in `sample` folder of a project).
+### Desktop app
+**Requires:** JDK/JRE 1.8+ installed
+
+First, you should create a config JSON file ([click to see example file](https://github.com/amatsegor/lokalize-gs/blob/master/sample/config.json)).
 
 Then download a JAR executable file, open a terminal and launch a JAR using such command: <pre>`java -jar lokalize-desktop-x.x.jar $PATH_TO_CONFIG_JSON_FILE`</pre>
 
 That's it! App should load a Google Sheets document. parse it and create a file structure you specified in a config.
+
+## Plans
+* Fix issue when .NET converter overwrites whole existing file, even if a `AUTO-GENERATED` tag is present
+* Add support for plurals
+* Add support for converting translations from PO/POT files
 
 ## Contributing
 

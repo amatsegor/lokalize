@@ -40,7 +40,7 @@ fun main(vararg args: String) {
         // using !! operator because I've validated a config before
         var task = Lokalize.using(GoogleSheetLoader(config.key!!, config.sheets!!)).load(config.options!!)
         config.targets?.forEach {
-            task = task.extract(it.valueCol, it.filename)
+            task = task.extract(it.valueCol, it.filepath)
         }
         task.transform().save(FileWriter())
     }

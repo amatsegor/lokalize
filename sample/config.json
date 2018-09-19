@@ -8,11 +8,11 @@
   "targets": [
     {
       "valueCol": "EN",
-      "filename": "output/values/strings.xml"
+      "filepath": "output/values/strings.xml"
     },
     {
       "valueCol": "ES",
-      "filename": "output/values-es/strings.xml"
+      "filepath": "output/values-es/strings.xml"
     }
   ]
 }

@@ -1,3 +1,3 @@
 package lokalize.models
 
-data class Target(val valueCol: String, val filename: String)
+data class Target(val valueCol: String, val filepath: String)
