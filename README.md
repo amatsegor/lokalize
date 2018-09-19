@@ -1,4 +1,4 @@
-# Lokalize - convert your Google Sheet to a localization file you need
+# LokalizeGS - convert your Google Sheet to a localization file you need
 
 ## Credits
 
@@ -21,6 +21,42 @@ This app/module helps you to convert a specifically-formatted Google Sheet conta
 It's written using a multi-platform projects (MPP) feature of Kotlin language, so nearly 65% of LOC are shared and platform-independent.
 
 So why didn't I just remove a NodeJS flavor (desktop one is really easier to use)? Well, it's a good chance to try MPP on a real project - and this is the only reason, I guess
+
+### Features:
+* 6 supported platforms
+* Support for `string-array`-s in Android
+* Portability
+
+### Implementation:
+Language: Kotlin 1.2.61
+
+**Common**: kotlinx-coroutines
+
+**Desktop**: kotlinx-coroutines, slf4j
+
+**JS**: kotlinx-coroutines
+
+
+## Usage:
+
+### Configuration
+`key` - Google Sheet key (https:// docs.google.com/ spreadsheets/d/**1rVIuMUuuJcZNLmAnCRosxOqiZJ-jtRqBz2rkDXvFG8w**/edit)
+
+`sheets` - Sheets filter. May contain either specific sheet names (Sheet1, Sheet2) or just * (so app will fetch all sheets in a document)
+
+`options` object - Additional options.
+* `format` - which platform file format you want to get in output **(required)**
+* `keyCol` - title of a column you want to use as translation key **(required)**
+* `encoding` - encoding of an output file. Default: utf8
+
+### Desktop app
+**Requirement:** JDK/JRE 1.8+ installed
+
+First, you should create a config JSON file (example is in `sample` folder of a project).
+
+Then download a JAR executable file, open a terminal and launch a JAR using such command: <pre>`java -jar lokalize-desktop-x.x.jar $PATH_TO_CONFIG_JSON_FILE`</pre>
+
+That's it! App should load a Google Sheets document. parse it and create a file structure you specified in a config.
 
 ## Contributing
 
