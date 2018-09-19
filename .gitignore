@@ -84,7 +84,6 @@ typings/
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -101,6 +100,7 @@ file.txt
 .gradle/
 .idea/
 build/
+**/out/**
 buildSrc/src/main/groovy/
 buildSrc/src/main/java/
 buildSrc/src/main/resources/
