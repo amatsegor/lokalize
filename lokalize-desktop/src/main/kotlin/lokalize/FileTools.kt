@@ -22,10 +22,8 @@ actual object FileTools {
     }
 
     actual fun createPathSync(path: String) {
-        val pathObject = Paths.get(path)
-
         try {
-            Files.createDirectories(pathObject)
+            Files.createDirectories(Paths.get(path))
         } catch (ex: Exception) {
             Logger.error(ex.message ?: "Can't create path $path")
         }

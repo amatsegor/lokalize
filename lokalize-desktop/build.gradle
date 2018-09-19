@@ -22,6 +22,8 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 }
 
+version = "1.0"
+
 jar {
     manifest {
         attributes 'Main-Class': 'lokalize.MainKt'
