@@ -1,3 +1,15 @@
+import proguard.gradle.ProGuardTask
+
+buildscript {
+    repositories {
+        flatDir dirs: 'lib'
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath ':proguard:'
+    }
+}
+
 plugins {
     id 'kotlin-platform-jvm' version '1.2.61'
     id 'org.jetbrains.kotlin.jvm' version '1.2.61'
@@ -22,7 +34,9 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 }
 
-version = "1.0"
+task proguardJar(type: ProGuardTask) {
+    configuration file("proguard-rules.pro")
+}
 
 jar {
     manifest {
@@ -33,6 +47,8 @@ jar {
 
     baseName = "lokalizegs-desktop"
 }
+
+proguardJar.dependsOn jar
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
