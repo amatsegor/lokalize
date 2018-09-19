@@ -34,8 +34,6 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 }
 
-version = "1.0"
-
 task proguardJar(type: ProGuardTask) {
     configuration file("proguard-rules.pro")
 }
