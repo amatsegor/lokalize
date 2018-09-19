@@ -64,7 +64,7 @@ So, any changes that you manually make below this tags, will be overwritten afte
 
 First, you should create a config JSON file ([click to see example file](https://github.com/amatsegor/lokalize-gs/blob/master/sample/config.json)).
 
-Then download a JAR executable file, open a terminal and launch a JAR using such command: <pre>`java -jar lokalize-desktop-x.x.jar $PATH_TO_CONFIG_JSON_FILE`</pre>
+Then [download](https://github.com/amatsegor/lokalize-gs/releases) a JAR executable file, open a terminal and launch a JAR using such command: <pre>`java -jar lokalize-desktop-x.x.jar $PATH_TO_CONFIG_JSON_FILE`</pre>
 
 That's it! App should load a Google Sheets document. parse it and create a file structure you specified in a config.
 
