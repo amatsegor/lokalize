@@ -13,11 +13,13 @@ class FileWriter : AbstractWriter() {
         val currentFolder = FileTools.getCurrentDirectory
         val filePath = "$currentFolder/$path"
 
-        Logger.info("Writing file $filePath")
-
         if (FileTools.isFileExistsSync(filePath)) {
+            Logger.info("File $filePath exists, appending")
+
             fileContent = FileTools.readFileSync(path, options.encoding ?: "utf8")
         }
+
+        Logger.info("Writing file $filePath")
 
         val toInsert = transformer.transform(entities)
         val output = transformer.insert(fileContent, toInsert, options)
