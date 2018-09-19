@@ -19,6 +19,7 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'lokalize'
 
-include 'lokalize-common', 'lokalize-desktop', 'lokalize-nodejs'
+rootProject.name = "lokalize"
+
+include("lokalize-common", "lokalize-desktop", "lokalize-nodejs")
