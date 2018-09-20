@@ -71,6 +71,7 @@ That's it! App should load a Google Sheets document. parse it and create a file 
 ## Plans
 * Fix issue when .NET converter overwrites whole existing file, even if a `AUTO-GENERATED` tag is present
 * Add support for plurals
+* Develop an Android Studio plugin
 * Add support for converting translations from PO/POT files
 
 ## Contributing
