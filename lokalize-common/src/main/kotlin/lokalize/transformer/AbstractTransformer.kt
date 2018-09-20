@@ -1,12 +1,12 @@
 package lokalize.transformer
 
-import lokalize.models.LSArray
-import lokalize.models.LSEntity
-import lokalize.models.LSLine
-import lokalize.models.Options
+import lokalize.models.*
 
 abstract class AbstractTransformer {
+
     open fun transformArray(array: LSArray): String = ""
+
+    open fun transformPlural(plural: LSPlural): String = ""
 
     abstract fun transformComment(comment: String): String
 
@@ -26,19 +26,31 @@ abstract class AbstractTransformer {
 
                     val isClosing = index == nonEmptyEntities.size - 1
 
-                    if (entity is LSLine) {
-                        if (entity.isComment) {
-                            valueToInsert.append(transformComment(entity.value))
-                        } else {
-                            valueToInsert.append(transformKeyValue(entity.key, entity.value, isClosing))
+                    when (entity) {
+                        is LSLine -> {
+                            if (entity.isComment) {
+                                valueToInsert.append(transformComment(entity.value))
+                            } else {
+                                valueToInsert.append(transformKeyValue(entity.key, entity.value, isClosing))
+                            }
                         }
-                    } else if (entity is LSArray) {
-                        val transformedArray = transformArray(entity)
+                        is LSArray -> {
+                            val transformedArray = transformArray(entity)
 
-                        if (transformedArray.isBlank()) {
-                            skipped = true
-                        } else {
-                            valueToInsert.append(transformedArray)
+                            if (transformedArray.isBlank()) {
+                                skipped = true
+                            } else {
+                                valueToInsert.append(transformedArray)
+                            }
+                        }
+                        is LSPlural -> {
+                            val transformedPlural = transformPlural(entity)
+
+                            if (transformedPlural.isBlank()) {
+                                skipped = true
+                            } else {
+                                valueToInsert.append(transformedPlural)
+                            }
                         }
                     }
 
