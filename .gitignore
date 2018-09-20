@@ -80,6 +80,7 @@ buildSrc/src/main/resources/
 buildSrc/src/test/
 src/main/resources/
 src/test/resources/
+.scannerwork
 
 output
 tokens
