@@ -24,7 +24,7 @@ So why didn't I just remove a NodeJS flavor (desktop one is really easier to use
 
 ### Features:
 * 6 supported platforms
-* Support for `string-array`-s in Android
+* Support for `string-array`-s and `plural`-s in Android
 * Portability
 
 ### Implementation:
