@@ -28,4 +28,23 @@ _______________________________________
 ----------------------------------------
 </pre>
 
-To see a real example of a spreadsheet - [click here](https://docs.google.com/spreadsheets/d/1rVIuMUuuJcZNLmAnCRosxOqiZJ-jtRqBz2rkDXvFG8w/edit?usp=sharing)
+* Also, on Android (iOS - soon) you can use a [plural strings](https://developer.android.com/guide/topics/resources/string-resource#Plurals) format.
+In this case, you should declare localizations in such format:
+<pre>
+______________________________________________
+|        KEY         |     EN     |     DE    |
+______________________________________________
+first_plural.plural  |            |           | // plural id with "plural" suffix
+----------------------------------------------
+        zero         |  ZeroStEN  |  ZeroStDE |
+----------------------------------------------
+         one         |  OneStrEN  |  OneStrDE |
+----------------------------------------------
+         two         |  TwoStrEN  |  TwoStrDE |
+----------------------------------------------
+<b>!</b>first_plural.plural |            |           | // same id, but with leading exclamation
+----------------------------------------------
+</pre>
+Supported quantifiers (value keys) are: `zero`,`one`,`two`,`few`,`many`,`other`
+
+###To see a real example of a spreadsheet - [click here](https://docs.google.com/spreadsheets/d/1rVIuMUuuJcZNLmAnCRosxOqiZJ-jtRqBz2rkDXvFG8w/edit?usp=sharing)

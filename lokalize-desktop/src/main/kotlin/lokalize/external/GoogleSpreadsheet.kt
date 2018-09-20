@@ -47,7 +47,7 @@ actual class GoogleSpreadsheet actual constructor(key: String) {
         values.drop(1).forEachIndexed { _, list ->
             val row = arrayListOf<Pair<String, String>>()
             list.forEachIndexed { index, value ->
-                val pair = keyRow[index].toLowerCase() to (value as? String ?: "").toLowerCase()
+                val pair = keyRow[index].toLowerCase() to (value as? String ?: "")
                 row.add(pair)
             }
             rows.add(row)

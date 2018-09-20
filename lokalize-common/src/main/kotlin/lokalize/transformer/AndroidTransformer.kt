@@ -1,6 +1,7 @@
 package lokalize.transformer
 
 import lokalize.models.LSArray
+import lokalize.models.LSPlural
 import lokalize.models.Options
 
 class AndroidTransformer : AbstractTransformer() {
@@ -13,6 +14,16 @@ class AndroidTransformer : AbstractTransformer() {
         }
 
         return builder.append("</string-array>").toString()
+    }
+
+    override fun transformPlural(plural: LSPlural): String {
+        val builder = StringBuilder("<plurals name=\"${plural.key}\">\n").apply {
+            plural.values.forEach {
+                append("\t<item quantity=\"${it.key}\">${it.value}</item>\n")
+            }
+            append("</plurals>")
+        }
+        return builder.toString()
     }
 
     override fun transformComment(comment: String) = "<!-- $comment -->"

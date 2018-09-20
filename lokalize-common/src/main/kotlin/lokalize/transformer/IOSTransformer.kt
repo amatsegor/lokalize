@@ -3,6 +3,16 @@ package lokalize.transformer
 import lokalize.models.Options
 
 class IOSTransformer : AbstractTransformer() {
+
+    //TODO: implement iOS plurals in a right way
+    /*override fun transformPlural(plural: LSPlural): String {
+        val builder = StringBuilder()
+        plural.values.forEach {
+            builder.append("${plural.key}.${it.key} = \"${it.value}\";\n")
+        }
+        return builder.toString()
+    }*/
+
     override fun transformComment(comment: String): String = "// $comment"
 
     override fun transformKeyValue(key: String, value: String, closing: Boolean): String {
