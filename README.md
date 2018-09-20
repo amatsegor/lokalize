@@ -45,6 +45,8 @@ So, any changes that you manually make below this tags, will be overwritten afte
 
 * Your spreadsheet should be "Published" for the app to work (File -> Publish to the web)
 
+[CLICK HERE TO SEE A SPREADSHEET FORMATTING MANUAL](docs/GOOGLE-SHEET-FORMAT.md)
+
 ### Configuration
 `key` - Google Sheet key (https:// docs.google.com/ spreadsheets/d/**1rVIuMUuuJcZNLmAnCRosxOqiZJ-jtRqBz2rkDXvFG8w**/edit)
 
@@ -62,7 +64,7 @@ So, any changes that you manually make below this tags, will be overwritten afte
 ### Desktop app
 **Requires:** JDK/JRE 1.8+ installed
 
-First, you should create a config JSON file ([click to see example file](https://github.com/amatsegor/lokalize-gs/blob/master/sample/config.json)).
+First, you should create a config JSON file ([click to see example file](sample/config.json)).
 
 Then [download](https://github.com/amatsegor/lokalize-gs/releases) a JAR executable file, open a terminal and launch a JAR using such command: <pre>`java -jar lokalize-desktop-x.x.jar $PATH_TO_CONFIG_JSON_FILE`</pre>
 
