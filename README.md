@@ -28,7 +28,7 @@ So why didn't I just remove a NodeJS flavor (desktop one is really easier to use
 * Portability
 
 ### Implementation:
-Language: Kotlin 1.2.61
+Language: Kotlin 1.2.70
 
 **Common**: kotlinx-coroutines
 
@@ -69,7 +69,7 @@ Then [download](https://github.com/amatsegor/lokalize-gs/releases) a JAR executa
 That's it! App should load a Google Sheets document. parse it and create a file structure you specified in a config.
 
 ## Plans
-* Fix issue when .NET converter overwrites whole existing file, even if a `AUTO-GENERATED` tag is present
+* Fix issue when .NET converter overwrites whole existing file, even if a `AUTO-GENERATED` tag is present **(DONE)**
 * Add support for plurals
 * Develop an Android Studio plugin
 * Add support for converting translations from PO/POT files

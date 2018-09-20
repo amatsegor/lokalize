@@ -7,7 +7,7 @@ buildscript {
 }
 
 plugins {
-    id("kotlin-platform-common") version ("1.2.61")
+    id("kotlin-platform-common") version (Versions.Kotlin)
 }
 
 repositories {
@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     compile( "org.jetbrains.kotlin:kotlin-stdlib-common")
-    compile(group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "0.26.0")
+    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.26.0")
 
     testCompile( "org.jetbrains.kotlin:kotlin-test-annotations-common")
     testCompile("org.jetbrains.kotlin:kotlin-test-common")
