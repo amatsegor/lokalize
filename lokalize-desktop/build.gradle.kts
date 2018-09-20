@@ -6,6 +6,7 @@ import kotlin.collections.mapOf
 buildscript {
     repositories {
         flatDir { dir("$projectDir/lib") }
+        maven(url = "https://dl.bintray.com/kotlin/kotlin-dev/")
     }
     dependencies {
         classpath(":proguard:")
@@ -13,8 +14,8 @@ buildscript {
 }
 
 plugins {
-    id("kotlin-platform-jvm") version ("1.2.61")
-    id("org.jetbrains.kotlin.jvm") version ("1.2.61")
+    id("kotlin-platform-jvm") version (Versions.Kotlin)
+    id("org.jetbrains.kotlin.jvm") version (Versions.Kotlin)
 }
 
 dependencies {
@@ -47,14 +48,7 @@ val jar = tasks.named<Jar>("jar") {
 val proguardJar by tasks.creating(proguard.gradle.ProGuardTask::class.java) {
     dependsOn(jar)
     configuration(file("proguard-rules.pro"))
-}
-
-val compileKotlin by tasks.existing(KotlinCompile::class) {
-    kotlinOptions.languageVersion = "1.8"
-}
-
-val compileTestKotlin by tasks.existing(KotlinCompile::class) {
-    kotlinOptions.languageVersion = "1.8"
+    outputs.upToDateWhen { false }
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8

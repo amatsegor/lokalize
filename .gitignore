@@ -74,12 +74,10 @@ file.txt
 .idea/
 build/
 **/out/**
-buildSrc/src/main/groovy/
-buildSrc/src/main/java/
-buildSrc/src/main/resources/
 buildSrc/src/test/
 src/main/resources/
 src/test/resources/
+.scannerwork
 
 output
 tokens

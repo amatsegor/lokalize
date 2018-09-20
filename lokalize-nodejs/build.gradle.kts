@@ -16,8 +16,8 @@ buildscript {
 }
 
 plugins {
-    id("kotlin-platform-js") version ("1.2.61")
-    id("kotlin2js") version ("1.2.61")
+    id("kotlin-platform-js") version (Versions.Kotlin)
+    id("kotlin2js") version (Versions.Kotlin)
     id("com.moowork.node") version ("1.2.0")
 }
 

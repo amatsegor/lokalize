@@ -1,18 +1,13 @@
 -verbose
 
 -dontobfuscate
--optimizations !code/allocation/variable
+-optimizations !code/allocation/variable,code/simplification/variable
 -optimizationpasses 3
 -libraryjars <java.home>/lib/rt.jar
 -libraryjars <java.home>/lib/jce.jar
 
-<<<<<<< HEAD
--injars build/libs/lokalizegs-desktop-1.0.jar
--outjars out/jar/lokalizegs-desktop-1.0.jar
-=======
 -injars build/libs/lokalizegs-desktop.jar
 -outjars out/jar/lokalizegs-desktop.jar
->>>>>>> master
 
 -keep class lokalize.MainKt {
     public static void main(java.lang.String[]);
